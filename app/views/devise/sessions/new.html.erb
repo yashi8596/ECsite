@@ -1,0 +1,19 @@
+<h2>管理者ログイン</h2>
+
+<%= form_with model: @admin, url: admin_session_path do |f| %>
+  <div class="field">
+    <label>メールアドレス  </label>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <label>パスワード  </label>
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+
+<% end %>
+

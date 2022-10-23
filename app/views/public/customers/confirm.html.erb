@@ -1,0 +1,11 @@
+<h4><strong>本当に退会しますか？</strong></h4>
+
+<p>退会すると、会員登録情報や</p>
+<p>これまでの購入履歴が閲覧できなくなります。</p>
+<p>退会する場合は、「退会する」をクリックしてください。</p>
+
+<button type="button" class="btn btn-primary">退会しない</button>
+
+<%= link_to customers_unsubscribe_path, method: :patch do %>
+  <button type="button" class="btn btn-danger">退会する</button>
+<% end %>

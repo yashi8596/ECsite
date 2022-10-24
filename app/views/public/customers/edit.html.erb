@@ -1,7 +1,7 @@
 <h4>会員情報編集</h4>
 
 <%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
-  
+
   <div class="field">
     <label>氏名</label>
     <%= f.text_field :last_name %>
@@ -29,19 +29,19 @@
     <label>電話番号</label>
     <%= f.text_field :telephone_number %>
   </div>
-  
+
   <div class="field">
     <label>メールアドレス</label>
     <%= f.email_field :email %>
   </div>
-  
+
   <div class="actions">
     <%= f.submit "編集内容を保存", class: "btn btn-success" %>
   </div>
-  
-  <%= link_to customers_confirm_path do %>
+
+  <%= link_to confirm_customer_path do %>
     <button type="button" class="btn btn-danger">退会する</button>
   <% end %>
-  
+
 <% end %>
 

@@ -1,0 +1,16 @@
+<h3>商品一覧(全<%= @items.count %>件)</h3>
+
+<% @items.each do |item| %>
+
+  <div>
+    画像が入りま～す。
+  </div>
+
+  <div>
+    <label>商品名</label>
+    <%= item.name %>
+  </div>
+
+  <div>
+    <%= item.price * 1.1 %>
+  </div>

@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrdersController < Admin::Base
   def show
     @order = Order.find(params[:id])
     @order_details = @order.Order_detail.all

@@ -1,4 +1,4 @@
-class Public::CustomersController < ApplicationController
+class Public::CustomersController < Public::Base
   def show
     @customer = Customer.find(params[:id])
   end
@@ -17,7 +17,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def confirm
-
+  @customer = Customer.find(params[:id])
   end
 
   def unsubscribe

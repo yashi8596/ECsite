@@ -8,16 +8,17 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get '/about' => 'homes#about'
-    get 'customers/confirm'
-    get 'customers/unsubscribe'
+    get 'customers/:id/confirm' => 'customers#confirm' ,as: 'confirm_customer'
+    get 'customers/:id/unsubscribe' => 'customers#unsubscribe' ,as: 'unsubscribe_customer'
     resources :customers, only:[:show, :edit, :update]
+    resources :items, only:[:show, :index]
   end
 
 
   namespace :admin do
 
     get '/' => 'homes#top'
-    resources :items, except:[:new]
+    resources :items, except:[:destroy]
     resources :customers, only:[:index, :show, :edit, :update]
     resources :orders, only:[:show, :update]
     resources :order_details, only:[:update]

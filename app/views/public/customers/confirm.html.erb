@@ -4,8 +4,10 @@
 <p>これまでの購入履歴が閲覧できなくなります。</p>
 <p>退会する場合は、「退会する」をクリックしてください。</p>
 
-<button type="button" class="btn btn-primary">退会しない</button>
+<%= link_to customer_path(@customer.id) do %>
+  <button type="button" class="btn btn-primary">退会しない</button>
+<% end %>
 
-<%= link_to customers_unsubscribe_path, method: :patch do %>
+<%= link_to unsubscribe_customer_path, method: :patch do %>
   <button type="button" class="btn btn-danger">退会する</button>
 <% end %>

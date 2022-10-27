@@ -46,7 +46,7 @@
 
     <tr>
       <td><%= order_detail.item_id.name %><td>
-      <td><%= order_detail.price * 1.1 %></td>
+      <td><%= order_detail.price * $tax %></td>
       <td><%= order_detail.amount %></td>
       <td>
         <%= form_with model: @order_detail url: admin_order_detail_path(@order_detail.id), method: :patch do |f| %>

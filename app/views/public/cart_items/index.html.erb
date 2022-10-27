@@ -1,0 +1,31 @@
+<h4>ショッピングカート</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+
+    <tr>
+      <td><%= cart_item.name %></td>
+      <td><%= cart_item.item_id.price * $tax %></td>
+      <td><%= cart_item.amount %></td>
+      <td><%= cart_item.price * $tax * cart_item.amount %></td>
+      <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete %></td>
+    </tr>
+
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <thead></thead>
+</table>

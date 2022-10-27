@@ -1,6 +1,6 @@
 <h4>会員情報編集</h4>
 
-<%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
+<%= form_with model: @customer, url: customers_path, method: :patch do |f| %>
 
   <div class="field">
     <label>氏名</label>

@@ -1,6 +1,6 @@
 <h2>管理者ログイン</h2>
 <div class="container mx-auto">
-  <%= form_with model: @admin, url: admin_session_path do |f| %>
+  <%= form_with model: @admin, url: admin_session_path, method: :post do |f| %>
 
     <div class="row">
       <label class="col-lg-6 text-right">メールアドレス  </label>

@@ -1,3 +1,70 @@
-<header>
-  <p>public_header</p>
+<header class="container">
+  <nav class="row">
+    <div class="col-2"><strong>NAGANO CAKE</strong></div>
+
+    <% if customer_signed_in? %>
+
+      <div class="text-right col-3">ようこそ、<%= current_customer.last_name %>さん!</div>
+
+    <% end %>
+
+    <div class="col-7 container">
+      <ul style="list-style: none;" class="nav-list row">
+        <% if customer_signed_in? %>
+
+          <li class="nav-list-item col 1 of 4 ">
+            <%= link_to customers_path do %>
+              <button type="button" class="btn btn-light">マイページ</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 2 of 4">
+            <%= link_to items_path do %>
+              <button type="button" class="btn btn-light">商品一覧</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 3 of 4">
+            <%= link_to cart_items_path do %>
+              <button type="button" class="btn btn-light">カート</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 4 of 4">
+            <%= link_to destroy_customer_session_path, method: :delete do %>
+              <button type="button" class="btn btn-light">ログアウト</button>
+            <% end %>
+          </li>
+
+        <% else %>
+
+          <li class="nav-list-item col 1 of 4">
+            <%= link_to about_path do %>
+              <button type="button" class="btn btn-light">About</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 2 of 4">
+            <%= link_to items_path do %>
+              <button type="button" class="btn btn-light">商品一覧</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 3 of 4">
+            <%= link_to new_customer_registration_path do %>
+              <button type="button" class="btn btn-light">新規登録</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item col 4 of 4">
+            <%= link_to new_customer_session_path do %>
+              <button type="button" class="btn btn-light">ログイン</button>
+            <% end %>
+          </li>
+
+        <% end %>
+      </ul>
+    </div>
+
+  </nav>
 </header>

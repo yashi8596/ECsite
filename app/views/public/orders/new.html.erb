@@ -2,42 +2,43 @@
 
 <%= form_with model: @order, url: confirm_order_path, method: :post do |f| %>
 
-<div>
-  <label>支払方法</label>
-  <%= f.radio_button :payment_method, '0' %>
-  <%= f.label :payment_method, 'クレジットカード', value: 0 %>
-
-  <%= f.radio_button :payment_method, '1' %>
-  <%= f.label :payment_method, '銀行振込', value: 1 %>
-</div>
-
-<div>
-  <label>お届け先</label>
-
   <div>
-    <%= f.radio_button :address, @order.customer_id.address %>
-    <%= f.label :address, 'ご自身の住所', value: @order.customer_id.address %><br>
+    <label>支払方法</label>
+    <%= f.radio_button :payment_method, '0' %>
+    <%= f.label :payment_method, 'クレジットカード', value: 0 %>
+  
+    <%= f.radio_button :payment_method, '1' %>
+    <%= f.label :payment_method, '銀行振込', value: 1 %>
+  </div>
+  
+  <div>
+    <label>お届け先</label>
+  
     <div>
-      〒<%= @order.customer_id.postal_code %>
-      <%= @order.customer_id.address %>
-      <%= @order.customer_id.name %>
+      <%= f.radio_button :address, @order.customer_id.address %>
+      <%= f.label :address, 'ご自身の住所', value: @order.customer_id.address %><br>
+      <div>
+        〒<%= @order.customer_id.postal_code %>
+        <%= @order.customer_id.address %>
+        <%= @order.customer_id.name %>
+      </div>
+    </div>
+  
+    <div>
+      登録済住所から選択(時間があればやる)
+    </div>
+  
+    <div>
+      <%= f.radio_button :address %>
+      <%= f.label :address, '新しいお届け先' %><br>
+      <div>
+        郵便番号(ハイフンなし)<%= f.text_field :postal_code %>
+        住所<%= f.text_field :address %>
+        宛名<%= f.text_field :name %>
+      </div>
     </div>
   </div>
-
-  <div>
-    登録済住所から選択(時間があればやる)
-  </div>
-
-  <div>
-    <%= f.radio_button :address %>
-    <%= f.label :address, '新しいお届け先' %><br>
-    <div>
-      郵便番号(ハイフンなし)<%= f.text_field :postal_code %>
-      住所<%= f.text_field :address %>
-      宛名<%= f.text_field :name %>
-    </div>
-  </div>
-</div>
+<% end 
 
 <%= link_to confirm_order_path do %>
   <button type="button" class="btn btn-primary">確認画面へ進む</button>

@@ -5,7 +5,7 @@ class Admin::ItemsController < Admin::Base
 
   def create
     @item = Item.new(item_params)
-    
+
     if @item.save
       redirect_to admin_item_path(@item.id)
     else
@@ -27,7 +27,7 @@ class Admin::ItemsController < Admin::Base
 
   def update
     @item = Item.find(params[:id])
-    if @item.update
+    if @item.update(item_params)
       redirect_to admin_item_path(@item.id)
     else
       render :edit

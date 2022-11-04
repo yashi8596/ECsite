@@ -2,11 +2,12 @@
   <h4 class="row text-left">商品詳細</h4>
 
   <div class="row">
-    <div class="col-4">
+    <div class="col-1"></div>
+    <div class="col-3 rounded center-block">
       <%= image_tag @item.get_item_image(300, 200) %>
     </div>
 
-    <div class="col-6">
+    <div class="col-7">
       <div class="row">
         <label class="col-4">商品名</label>
         <div class="col-8"><%= @item.name %></div>
@@ -31,21 +32,30 @@
         <label class="col-4">販売ステータス</label>
         <div class="col-8">
           <% if @item.is_active == true %>
-            <%= '販売中' %>
+            <label class="text-success"><strong>販売中</strong></label>
           <% else %>
-            <%= '販売停止中' %>
+            <label class="text-danger"><strong>販売停止中</strong></label>
           <% end %>
         </div>
       </div>
-
     </div>
 
-    <div class="col-2"></div>
+    <div class="col-1"></div>
   </div>
 
-  <%= link_to edit_admin_item_path(@item.id) do %>
-    <button type="button" class"btn btn-success">編集する</button>
-  <% end %>
+  <div class="row">
+    <div class="col-4"></div>
+
+    <div class="col-4 text-center">
+      <%= link_to edit_admin_item_path(@item.id) do %>
+        <button type="button" class="btn btn-success">　　編集する　　</button>
+      <% end %>
+    </div>
+
+    <div class="col-4"></div>
+  </div>
+
+
 
 </div>
 

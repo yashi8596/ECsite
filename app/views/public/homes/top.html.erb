@@ -1,25 +1,57 @@
 <div class="container">
-  <div class="row">
+  <div class="row col-12">
 
-    <div class="col-3">
-      <table>
-        <thead>
-          ジャンル
-        </thead>
-      </table>
+    <div class="col-3 row my-4 mr">
+      <div class="col-12 mr-2">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-secondary">
+              <th>ジャンル検索</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <% @genres.each do |genre| %>
+                <td class="col-12 row m-0"><%= genre.name %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="col-9 container">
-
-      <div class="top-intro">
-        <p>ようこそ、ながのCAKEへ！</p>
-        <p>このサイトは、ケーキ販売のECサイトになります。</p>
-        <p>会員でもない方も商品の閲覧はできますが、</p>
-        <p>購入には、会員登録が必要になります。</p>
+    <div class="col-9 row my-4 ml-2 mr-0">
+      <div class="col-8 row mx-auto introduce">
+        <p class="col-12 mx-auto my-auto">
+          ようこそ、ながのCAKEへ！<br>
+          このサイトは、ケーキ販売のECサイトになります。<br>
+          会員でもない方も商品の閲覧はできますが、<br>
+          購入には、会員登録が必要になります。<br>
+        </p>
       </div>
 
       <div class="row new-items">
-        <h2>新着商品</h2>
+        <div class="col-10 row mx-auto">
+          <h3 class="col-4 rounded text-center bg-light">新着商品</h3>
+        </div>
+
+        <div class="col-12 row pr-0">
+          <% @items.each do |item| %>
+            <%= link_to item_path(item.id) do %>
+              <div class="col-3 p-0 mr-0">
+                <table>
+                  <tr>
+                    <td class="col-12 row m-0 pl-0 item-image"><%= image_tag item.get_item_image(180, 120) %></td>
+                    <td class="col-12 row m-0"><%= item.name %></td>
+                    <td class="col-12 row m-0">￥<%= item.price_inc_tax %></td>
+                  </tr>
+                </table>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <%= link_to 'すべての商品を見る＞', items_path, class:'col-12 text-right mx-auto' %>
       </div>
 
     </div>

@@ -1,28 +1,47 @@
-<h4>ログイン</h4>
+<div class="container mx-auto">
+  <h3>ログイン</h3>
 
-<%= form_with model: @customer, url: customer_session_path, method: :post do |f| %>
+  <div class="row col-10 mx-auto mb-3">
+    <p>
+        <% if flash[:alert] %>
 
-  <p>会員の方はこちらからログイン</p>
+          <div class="alert alert-danger col-12 text-center">
+            <%= flash[:alert] %>
+          </div>
 
-  <div class="field">
-    <label>メールアドレス</label>
-    <%= f.email_field :email, autofocus: true %>
+        <% end %>
+      </p>
   </div>
 
-  <div class="field">
-    <label>パスワード</label>
-    <%= f.password_field :password %>
+  <div class="row col-10 mx-auto">
+    <h5 class="col-5 text-left m-3">会員の方はこちらからログイン</h5>
   </div>
 
-  <div class="actions">
-    <%= f.submit "ログイン", class: "btn btn-primary" %>
+
+  <%= form_with model: @customer, url: customer_session_path, method: :post do |f| %>
+
+    <div class="row">
+      <label class="col-5 text-right">メールアドレス  </label>
+      <div class="form-group col-7"><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-cotrol col-7" %></div>
+    </div>
+
+    <div class="row">
+      <label class="col-5 text-right">パスワード  </label>
+      <div class="form-group col-7"><%= f.password_field :password, autocomplete: "current-password", class: "form-cotrol col-7" %></div>
+    </div>
+
+    <div class="row">
+      <div class="col-5"></div>
+      <div class="form-group col-7"><%= f.submit "ログイン", class: "btn btn-primary col-4" %></div>
+    </div>
+
+  <% end %>
+  <div class="row col-10 mx-auto">
+    <h5 class="col-5 text-left m-3">会員登録がお済みでない方</h5>
   </div>
-<% end %>
 
-<p>会員登録がお済みでない方</p>
-
-<div>
-  <%= link_to "こちら", new_customer_registration_path %>
-  から新規登録を行ってください。
+  <div class="row col-8 mx-auto">
+    <%= link_to "こちら", new_customer_registration_path %>
+    から新規登録を行ってください。
+  </div>
 </div>
-

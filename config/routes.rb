@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     resource :customers, only:[:show, :edit, :update]
     get 'customers/confirm',as: 'confirm_customer'
-    get 'customers/unsubscribe',as: 'unsubscribe_customer'
+    patch 'customers/unsubscribe',as: 'unsubscribe_customer'
 
     resources :cart_items, except:[:new, :show, :edit]
     delete 'cart_items' => 'cart_items#destroy_all',as: 'destroy_all_cart_items'

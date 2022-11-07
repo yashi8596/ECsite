@@ -1,13 +1,29 @@
-<h4><strong>本当に退会しますか？</strong></h4>
+<div class="container">
+  <h3 class="row mt-5 mb-3"><strong class="col-5 mx-auto my-4 text-center">本当に退会しますか？</strong></h3>
 
-<p>退会すると、会員登録情報や</p>
-<p>これまでの購入履歴が閲覧できなくなります。</p>
-<p>退会する場合は、「退会する」をクリックしてください。</p>
+  <div class="row mb-3 mx-auto">
+    <p class="col-8 mx-auto text-center">退会すると、会員登録情報や</p>
+    <p class="col-8 mx-auto text-center">これまでの購入履歴が閲覧できなくなります。</p>
+    <p class="col-8 mx-auto text-center">退会する場合は、「退会する」をクリックしてください。</p>
+  </div>
 
-<%= link_to customer_path(@customer.id) do %>
-  <button type="button" class="btn btn-primary">退会しない</button>
-<% end %>
+  <div class="row mx-auto">
+    <div class="col-10 row mx-auto">
+      <%= link_to customers_path, class:"col-4 ml-auto" do %>
+        <button type="button" class="btn btn-primary btn-lg">　退会しない　</button>
+      <% end %>
 
-<%= link_to unsubscribe_customer_path, method: :patch do %>
-  <button type="button" class="btn btn-danger">退会する</button>
-<% end %>
+      <div class="col-4 mr-auto">
+        <%= form_with model: @customer, url: unsubscribe_customer_path, method: :patch do |f| %>
+          <%= f.hidden_field :is_deleted, :value => true %>
+          <%= f.submit "退会する", class:"btn btn-danger btn-lg" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+

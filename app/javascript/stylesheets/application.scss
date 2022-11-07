@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 nav {
   padding-top: 20px;
@@ -6,4 +7,18 @@ nav {
 
 .new-items {
   height: 40%;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.introduce {
+  font-size: 1.3rem;
+  height: 350px;
+}
+
+.item-image {
+  width: 180px;
+  height: 120px;
 }

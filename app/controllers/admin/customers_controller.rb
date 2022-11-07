@@ -1,7 +1,7 @@
 class Admin::CustomersController < Admin::Base
 
   def index
-    @customers = Customer.all
+    @customers = Customer.page(params[:page]).per(10)
   end
 
   def show
@@ -14,10 +14,18 @@ class Admin::CustomersController < Admin::Base
 
   def update
     @customer = Customer.find(params[:id])
-    if @customer.update
+    if @customer.update(customer_params)
+      flash.notice = "会員情報を更新しました。"
       redirect_to admin_customer_path(@customer.id)
     else
       render :edit
     end
   end
+
+  private
+
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email, :is_deleted)
+  end
+
 end

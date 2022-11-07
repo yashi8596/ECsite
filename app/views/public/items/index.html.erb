@@ -1,18 +1,56 @@
-<h3>商品一覧(全<%= @items.count %>件)</h3>
+<div class="container">
+  <div class="row">
 
-<% @items.each do |item| %>
+    <div class="col-3 row my-4">
+      <div class="col-12 mr-2">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-secondary">
+              <th>ジャンル検索</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <% @genres.each do |genre| %>
+                <td class="col-12 row m-0"><%= genre.name %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-  <div>
-    画像が入りま～す。
+    <div class="col-9 row my-4 mx-auto">
+
+      <div class="row new-items">
+        <div class="col-10 row my-3 mx-auto">
+          <h3 class="col-6 rounded text-center bg-light">商品一覧(全<%= @items_amount.count %>件)</h3>
+        </div>
+
+        <div class="col-12 row pr-0">
+          <% @items.each do |item| %>
+            <%= link_to item_path(item.id) do %>
+              <div class="col-3 p-0 mr-4 mb-4">
+                <table>
+                  <tr>
+                    <td class="col-12 row m-0 pl-0 item-image"><%= image_tag item.get_item_image(180, 120) %></td>
+                    <td class="col-12 row m-0"><%= item.name %></td>
+                    <td class="col-12 row m-0">￥<%= item.price_inc_tax %></td>
+                  </tr>
+                </table>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="row col-12 ">
+          <div class="col-4"></div>
+          <%= paginate @items %>
+          <div class="col-5"></div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
-
-  <div>
-    <label>商品名</label>
-    <%= item.name %>
-  </div>
-
-  <div>
-    <%= item.price * 1.1 %>
-  </div>
-
-<% end %>
+</div>

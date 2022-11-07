@@ -1,18 +1,42 @@
-<div>
-  <%= @item.name %>
-</div>
+<div class="container">
+  <div class="row">
 
-<div>
-  <%= @item.introduction %>
-</div>
+    <div class="col-3 row my-4">
+      <div class="col-12 mr-2">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-secondary">
+              <th>ジャンル検索</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <% @genres.each do |genre| %>
+                <td class="col-12 row m-0"><%= genre.name %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<div>
-  <%= @item.price * 1.1 %>
-  <h6>(税込)</h6>
-</div>
+    <div class="col-9 row my-4 mx-auto">
+      <div class="col-5 mx-2">
+        <%= image_tag @item.get_item_image(300, 200) %>
+      </div>
 
-<div>個数選択</div>
+      <div class="col-7 row">
+        <%= @item.name %><br>
+        <%= @item.introduction %><br>
+        ￥<%= @item.price_inc_tax %>(税込)<br>
+        <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+          <%= f.text_field :amount %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <%= f.submit 'カートに入れる', class:'btn btn-lg btn-success' %>
+        <% end %>
+      </div>
+    </div>
 
-<div>
-  <button type="button" class="btn btn-success">カートに入れる(リンクは後でつける)</button>
+
+  </div>
 </div>

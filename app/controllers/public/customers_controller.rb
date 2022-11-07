@@ -18,12 +18,15 @@ class Public::CustomersController < Public::Base
   end
 
   def confirm
-  @customer = current_customer
+    @customer = current_customer
   end
 
   def unsubscribe
     @customer = current_customer
-    @customer.is_deleted = true
+    @customer.update(is_deleted: "true")
+
+    reset_session
+
     redirect_to '/'
   end
 

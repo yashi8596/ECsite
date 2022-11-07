@@ -1,35 +1,39 @@
 <div class="container">
-  <h4 class="row text-left">商品詳細</h4>
+  <div class="row mt-4">
+    <div class="col-8 row mx-auto">
+      <h3 class="col-4 rounded text-center bg-light">商品詳細</h3>
+    </div>
+  </div>
 
-  <div class="row">
-    <div class="col-1"></div>
-    <div class="col-3 rounded center-block">
+  <div class="row my-4">
+
+    <div class="col-4 ml-auto">
       <%= image_tag @item.get_item_image(300, 200) %>
     </div>
 
-    <div class="col-7">
-      <div class="row">
-        <label class="col-4">商品名</label>
+    <div class="col-6 mr-auto">
+      <div class="row mb-2">
+        <label class="col-3">商品名</label>
         <div class="col-8"><%= @item.name %></div>
       </div>
 
-      <div class="row">
-        <label class="col-4">商品説明</label>
+      <div class="row mb-2">
+        <label class="col-3">商品説明</label>
         <div class="col-8"><%= @item.introduction %></div>
       </div>
 
-      <div class="row">
-        <label class="col-4">ジャンル</label>
+      <div class="row mb-2">
+        <label class="col-3">ジャンル</label>
         <div class="col-8"><%= @item.genre.name %></div>
       </div>
 
-      <div class="row">
-        <label class="col-4">税込価格(税抜価格)</label>
-        <div class="col-8"><%= @item.price_inc_tax (@item.price) %>円</div>
+      <div class="row mb-2">
+        <label class="col-3">税込価格<br>(税抜価格)</label>
+        <div class="col-8"><%= @item.price_inc_tax(@item.price) %>円</div>
       </div>
 
-      <div class="row">
-        <label class="col-4">販売ステータス</label>
+      <div class="row mb-2">
+        <label class="col-3">販売ステータス</label>
         <div class="col-8">
           <% if @item.is_active == true %>
             <label class="text-success"><strong>販売中</strong></label>
@@ -40,7 +44,6 @@
       </div>
     </div>
 
-    <div class="col-1"></div>
   </div>
 
   <div class="row">
@@ -48,7 +51,7 @@
 
     <div class="col-4 text-center">
       <%= link_to edit_admin_item_path(@item.id) do %>
-        <button type="button" class="btn btn-success">　　編集する　　</button>
+        <button type="button" class="btn btn-lg btn-success">編集する</button>
       <% end %>
     </div>
 

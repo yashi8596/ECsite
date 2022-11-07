@@ -1,13 +1,32 @@
 <div class="container my-auto">
   <div class="row mt-4">
     <div class="col-8 row mx-auto">
-      <h3 class="rounded text-center bg-light">会員情報編集</h3>
+      <h3 class="rounded text-center bg-light"><%= @customer.full_name(@customer.last_name, @customer.first_name) %>さんの会員情報編集</h3>
     </div>
   </div>
 
-  <%= form_with model: @customer, url: customers_path, method: :patch do |f| %>
+  <div class="row my-4">
+    <% if @customer.errors.any? %>
+      <%= @customer.errors.count %>errors prohibited this obj from being saved:
+
+      <ul class="col-12">
+        <% @customer.errors.full_messages.each do |message| %>
+          <li class="alert text-center"><%= message %></li>
+        <% end %>
+      </ul>
+
+    <% end %>
+  </div>
+
+  <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :patch do |f| %>
 
     <div class="row my-4">
+      <div class="col-12 row mb-3">
+        <label class="col-2 ml-auto">会員ID</label>
+        <div class="col-8 mr-auto row">
+          <div class="col-4"><%= @customer.id %></div>
+          </div>
+      </div>
 
       <div class="form-group col-12 row mb-3">
         <label class="col-2 ml-auto">氏名</label>
@@ -55,14 +74,24 @@
         </div>
       </div>
 
+      <div class="form-group col-12 row mb-3">
+        <label class="col-2 ml-auto">会員ステータス</label>
+        <div class="col-8 mr-auto row">
+          <div class="col-2">
+            <%= f.radio_button :is_deleted, 'false' %>
+            <%= f.label :is_deleted, '有効', value: false %>
+          </div>
+          <div class="col-2">
+            <%= f.radio_button :is_deleted, 'true' %>
+            <%= f.label :is_deleted, '退会', value: true %>
+          </div>
+        </div>
+      </div>
+
       <div class="col-12 row">
       <div class="col-2 ml-auto"></div>
       <div class="col-8 mr-auto row">
-        <%= f.submit '編集内容を保存', class:"form-control btn btn-success btn-lg col-5"%>
-        <div class="col-3"></div>
-        <%= link_to confirm_customer_path, class:"col-3" do %>
-          <button type="button" class="btn btn-danger btn-lg">退会する</button>
-        <% end %>
+        <%= f.submit '変更を保存', class:"form-control btn btn-success btn-lg col-4"%>
       </div>
       </div>
 

@@ -64,7 +64,9 @@
 
     <div class="row col-12">
       <h4 class="col-2 my-auto"><strong>注文履歴</strong></h4>
-      <button type="button" class="btn btn-primary btn-lg col-2">一覧を見る</button>
+      <%= link_to orders_path, class:"col-2" do %>
+        <button type="button" class="btn btn-primary btn-lg">一覧を見る</button>
+      <% end %>
     </div>
   </div>
 </div>

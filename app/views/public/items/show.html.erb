@@ -1,4 +1,7 @@
 <div class="container">
+  
+  
+
   <div class="row">
 
     <div class="col-3 row my-4">
@@ -20,22 +23,25 @@
       </div>
     </div>
 
-    <div class="col-9 row my-4 mx-auto">
-      <div class="col-5 mx-2">
-        <%= image_tag @item.get_item_image(300, 200) %>
-      </div>
 
-      <div class="col-7 row">
-        <%= @item.name %><br>
-        <%= @item.introduction %><br>
-        ￥<%= @item.price_inc_tax %>(税込)<br>
-        <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-          <%= f.text_field :amount %>
-          <%= f.hidden_field :item_id, :value => @item.id %>
-          <%= f.submit 'カートに入れる', class:'btn btn-lg btn-success' %>
-        <% end %>
-      </div>
+    <div class="col-4 mx-2 py-4">
+      <%= image_tag @item.get_item_image(300, 200) %>
     </div>
+
+    <div class="col-5 row py-4">
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+
+        <h4 class="col-12 py-3 mb-0"><strong><%= @item.name %></strong></h4>
+        <div class="col-12 p-3"><%= @item.introduction %></div>
+        <h4 class="p-3"><strong>￥<%= @item.price_inc_tax %></strong><small>(税込)</small></h4>
+
+        <%= f.select :amount, options_for_select([["個数選択", ''], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9]]), {}, {class:"amount_select col-5 p-1 mx-3"} %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.submit 'カートに入れる', class:'btn btn-success col-5 mx-3' %>
+
+      <% end %>
+    </div>
+  </div>
 
 
   </div>

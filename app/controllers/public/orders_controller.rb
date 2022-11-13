@@ -40,24 +40,21 @@ class Public::OrdersController < Public::Base
     end
   end
 
-  def success
-  end
-
   def create
     @order = current_customer.orders.new(order_params)
-    if @order.save
 
-      cart_items = current_customer.cart_items.all
-      order_detail = OrderDetail.new
+    cart_items = current_customer.cart_items.all
 
-      cart_items.each do |cart|
-        order_detail.item_id = cart.item_id
-        order_detail.order_id = @order.id
-        order_detail.price = cart.item.price
-        order_detail.amount = cart.amount
+    ordered_item = []
+    @ordered_items = cart_items
 
-        order_detail.save
+      @ordered_items.each do |i|
+        ordered_item << @order.order_details.build(item_id: i.item_id, price: i.item.price, amount: i.amount, work_status: 0)
       end
+
+    OrderDetail.import ordered_item
+
+    if @order.save
 
       redirect_to success_order_path
       cart_items.destroy_all
@@ -72,22 +69,21 @@ class Public::OrdersController < Public::Base
     end
   end
 
+  def success
+  end
+
   def index
     @orders = current_customer.orders.all
-    @order_details = current_customer.order_details.all
   end
 
   def show
     @order = current_customer.orders.find(params[:id])
-    @order_detail = current_customer.order_details.all
-    @order.shipping_fee = 800
-    @total = @order_details.inject(0) { |sum, item| sum + item.sum_of_price }
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :name, :address, :postal_code, :customer_id, :shipping_fee, :total_payment)
+    params.require(:order).permit(:payment_method, :name, :address, :postal_code, :customer_id, :shipping_fee, :total_payment, :order_status)
   end
 
   def address_params

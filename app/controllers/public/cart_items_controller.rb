@@ -7,7 +7,7 @@ class Public::CartItemsController < Public::Base
 
   def update
     @cart_item = current_customer.cart_items.find(params[:id])
-    if @cart_item.save
+    if @cart_item.update(cart_item_params)
       flash.notice = "カート内商品の情報を更新しました。"
       redirect_to cart_items_path
     else
@@ -25,24 +25,36 @@ class Public::CartItemsController < Public::Base
 
   def destroy_all
     cart_items = current_customer.cart_items.all
-    cart_items.destroy
+    cart_items.destroy_all
     flash.notice = "カート内の全商品を削除しました。"
     redirect_to cart_items_path
   end
 
   def create
     @cart_item = current_customer.cart_items.new(cart_item_params)
-    if @cart_item.save
-      flash.notice = "カートに商品を追加しました。"
+    item = current_customer.cart_items.find_by(item_id: @cart_item.item_id)
+
+    if @cart_item.item_id === item.item_id
+
+      @cart_item.amount = @cart_item.amount.to_i + item.amount
+      @cart_item.update(cart_item_params)
+
+      flash.notice = "カート内商品の情報を更新しました。"
       redirect_to cart_items_path
     else
-      redirect_to item_path(@cart_item.item_id)
+      if @cart_item.save
+        flash.notice = "カートに商品を追加しました。"
+        redirect_to cart_items_path
+      else
+        flash.notice = "お手数ですが、操作をやり直して下さい。"
+        redirect_to item_path(@cart_item.item_id)
+      end
     end
   end
 
   private
 
   def cart_item_params
-    params.permit(:item_id, :customer_id, :amount)
+    params.require(:cart_item).permit(:item_id, :customer_id, :amount)
   end
 end

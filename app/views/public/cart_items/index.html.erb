@@ -1,68 +1,110 @@
-<h4>ショッピングカート</h4>
+<div class="container mx-auto">
 
-<% if flash[:notice] %>
-  <div class="row col-12 bg-info py-2">
-    <p id="notice" class="col-6 text-center text-white mx-auto my-0">
-      <%= flash[:notice] %>
-    </p>
+  <% if @cart_items.count != 0 %>
+
+  <div class="row col-10 mx-auto my-3">
+    <h4 class="col-5 text-left">ショッピングカート</h4>
+    <%= link_to destroy_all_cart_items_path, method: :delete, class:"ml-auto" do %>
+      <button type="button" class="btn btn-danger">カートを空にする</button>
+    <% end %>
   </div>
-<% end %>
 
-<% if @cart_items.count != 0 %>
 
-  <table>
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価(税込)</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-      <% @cart_items.each do |cart_item| %>
-
-      <tr>
-        <td><%= cart_item.item.name %></td>
-        <td><%= cart_item.item.price_inc_tax %></td>
-        <td><%= cart_item.amount %></td>
-        <td><%= cart_item.sum_of_price %></td>
-        <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete %></td>
-      </tr>
-
-      <% end %>
-    </tbody>
-  </table>
-
-  <div>
-    <div>
-      <%= link_to root_path do %>
-        <button type="btn btn-primary">買い物を続ける</button>
-      <% end %>
+  <% if flash[:notice] %>
+    <div class="bg-info py-2 ">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
     </div>
+  <% end %>
 
+  <div class="row mx-auto">
+    <table class="table table-bordered bordered-dark mx-auto">
+      <thead class="table table-secondary">
+        <tr>
+          <th class="col-5">商品名</th>
+          <th class="col-2">単価(税込)</th>
+          <th class="col-2">数量</th>
+          <th class="col-1">小計</th>
+          <th class="col-2"></th>
+        </tr>
+      </thead>
 
-    <table>
-      <tr>
-        <th>合計金額</th>
-        <td><%= @total.round.to_i %></td>
-      </tr>
+      <tbody>
+
+        <% @cart_items.each do |cart_item| %>
+
+        <tr>
+          <td class="col-5"><%= cart_item.item.name %></td>
+          <td class="col-2"><%= cart_item.item.price_inc_tax %></td>
+          <td class="col-2">
+            <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+
+              <div class="row">
+                <%= f.select :amount, options_for_select([[cart_item.amount, ''], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9]]), {}, {class:"form-control amount_select col-4 ml-auto mx-2"} %>
+                <%= f.submit '変更', class:"btn btn-success col-4 mr-auto" %>
+              </div>
+
+            <% end %>
+            </td>
+          <td class="col-1"><%= cart_item.sum_of_price %></td>
+          <td class="col-2">
+            <%= link_to cart_item_path(cart_item.id), method: :delete do %>
+              <button type="button" class="btn btn-danger">削除する</button>
+            <% end %>
+          </td>
+        </tr>
+
+        <% end %>
+      </tbody>
     </table>
   </div>
 
-  <%= link_to new_order_path do %>
-    <button type="btn btn=success">情報入力画面に進む</button>
+  <div class="row my-4 mx-auto">
+    <div class="col-8">
+      <%= link_to root_path do %>
+        <button type="button" class="btn btn-primary ml-3">買い物を続ける</button>
+      <% end %>
+    </div>
+
+    <div class="col-4 m-0">
+      <table class="table table-bordered bordered-dark">
+        <tr>
+          <th class="col-6 table table-secondary">合計金額</th>
+          <td class="col-6"><%= @total.round.to_i %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= link_to new_order_path, class:"mx-auto" do %>
+      <button type="button" class="btn btn-success btn-lg">情報入力画面に進む</button>
+    <% end %>
+  </div>
+
+
+  <% else %>
+
+    <div class="row col-10 mx-auto my-3">
+      <h4 class="col-5 text-left">ショッピングカート</h4>
+    </div>
+
+
+    <% if flash[:notice] %>
+      <div class="bg-info py-2 ">
+        <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+          <%= flash[:notice] %>
+        </p>
+      </div>
+    <% end %>
+
+    <p class="m-5 p-5 text-center">現在、カートに商品は入っていません。</p>
+
+    <div class="row">
+      <%= link_to items_path, class:"mx-auto" do %>
+        <button type="button" class="btn btn-success btn-lg">商品を見に行く</button>
+      <% end %>
+    </div>
   <% end %>
-
-<% else %>
-
-  <p>現在、カートに商品は入っていません。</p>
-
-  <%= link_to items_path do %>
-    <button type="button" class="btn btn-light">商品を見に行く</button>
-  <% end %>
-
-<% end %>
+</div>

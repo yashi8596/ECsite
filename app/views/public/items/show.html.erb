@@ -1,6 +1,12 @@
 <div class="container">
-  
-  
+
+  <% if flash[:notice] %>
+    <div class="row col-12 bg-danger py-2">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% end %>
 
   <div class="row">
 

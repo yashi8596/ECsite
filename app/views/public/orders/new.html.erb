@@ -58,7 +58,7 @@
       <%= f.hidden_field :customer_id, :value => current_customer.id %>
       <%= f.hidden_field :shipping_fee, :value => @order.shipping_fee %>
       <%= f.hidden_field :total_payment, :value => @order.total_payment %>
-      <%= f.hidden_field :order_status, :value => @order.order_status %>
+      <%= f.hidden_field :order_status, :value => Order.order_statuses.key(0) %>
 
       <%= f.submit '確認画面へ進む', class:"btn btn-lg btn-primary col-3 mx-auto my-3" %>
 

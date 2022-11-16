@@ -12,7 +12,7 @@ class Public::OrdersController < Public::Base
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
 
     @order = current_customer.orders.new(order_params)
-
+    
     if params[:order][:address_number] == "1"
 
       @order.name = current_customer.full_name(current_customer.last_name, current_customer.first_name)

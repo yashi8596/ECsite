@@ -31,24 +31,34 @@ class Public::CartItemsController < Public::Base
   end
 
   def create
-    @cart_item = current_customer.cart_items.new(cart_item_params)
-    item = current_customer.cart_items.find_by(item_id: @cart_item.item_id)
+    @cart_item = current_customer.cart_items.build(cart_item_params)
+    @cart_items = current_customer.cart_items.all
 
-    if @cart_item.item_id === item.item_id
+    @cart_items.each do |item|
+      if item.item_id == @cart_item.item_id
 
-      @cart_item.amount = @cart_item.amount.to_i + item.amount
-      @cart_item.update(cart_item_params)
+        item_amount = item.amount + @cart_item.amount
+        if item.update_attribute(:amount, item_amount)
 
-      flash.notice = "カート内商品の情報を更新しました。"
-      redirect_to cart_items_path
-    else
-      if @cart_item.save
-        flash.notice = "カートに商品を追加しました。"
-        redirect_to cart_items_path
-      else
-        flash.notice = "お手数ですが、操作をやり直して下さい。"
-        redirect_to item_path(@cart_item.item_id)
+          @cart_item.delete
+
+          flash.notice = "カート内商品の情報を更新しました。"
+          redirect_to cart_items_path and return
+        else
+          flash.notice = "お手数ですが、操作をやり直して下さい。"
+          redirect_to item_path(@cart_item.item_id) and return
+        end
       end
+    end
+
+    if @cart_item.save
+      flash.notice = "カートに商品を追加しました。"
+
+      redirect_to cart_items_path and return
+    else
+      flash.notice = "お手数ですが、操作をやり直して下さい。"
+
+      redirect_to item_path(@cart_item.item_id) and return
     end
   end
 

@@ -81,7 +81,7 @@
       <%= f.hidden_field :shipping_fee, :value => @order.shipping_fee %>
       <%= f.hidden_field :total_payment, :value => @order.total_payment %>
       <%= f.hidden_field :payment_method, :value => @order.payment_method %>
-      <%= f.hidden_field :order_status, :value => @order.order_status %>
+      <%= f.hidden_field :order_status, :value => Order.order_statuses.key(0) %>
 
       <%= f.submit '注文を確定する', class:"btn btn-success btn-lg col-4 mx-auto" %>
     </div>

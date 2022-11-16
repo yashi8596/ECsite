@@ -41,6 +41,7 @@
               
             <% elsif @order.order_status == 3 %>
               <%= Order.order_statuses_i18n[:ready] %>
+              
             <% elsif @order.order_status == 4 %>
               <%= Order.order_statuses_i18n[:shipped] %>
             <% end %>

@@ -1,10 +1,13 @@
 class Public::OrdersController < Public::Base
+  before_action :authenticate_customer!
+
   def new
     @order = Order.new
     @cart_items = current_customer.cart_items.all
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
     @order.shipping_fee = 800
     @order.total_payment = @total.round.to_i + @order.shipping_fee
+    @addresses = current_customer.addresses.all
   end
 
   def confirm
@@ -12,7 +15,7 @@ class Public::OrdersController < Public::Base
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
 
     @order = current_customer.orders.new(order_params)
-    
+
     if params[:order][:address_number] == "1"
 
       @order.name = current_customer.full_name(current_customer.last_name, current_customer.first_name)
@@ -21,13 +24,9 @@ class Public::OrdersController < Public::Base
 
     elsif params[:order][:address_number] == "2"
 
-      if Address.exists?(name: params[:order][:registered])
-
-        @order.name = Address.find(params[:order][:registered]).name
-        @order.address = Address.find(params[:order][:registered]).address
-      else
-        render :new
-      end
+      @order.name = Address.find(params[:order][:address_id]).name
+      @order.address = Address.find(params[:order][:address_id]).address
+      @order.postal_code = Address.find(params[:order][:address_id]).postal_code
 
     elsif params[:order][:address_number] == "3"
 

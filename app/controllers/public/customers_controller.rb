@@ -1,4 +1,6 @@
 class Public::CustomersController < Public::Base
+  before_action :authenticate_customer!
+
   def show
     @customer = current_customer
   end
@@ -13,6 +15,7 @@ class Public::CustomersController < Public::Base
       flash.notice = "アカウント情報を更新しました。"
       redirect_to customers_path
     else
+      flash.alert = "お手数ですが、操作をやり直してください。"
       render :edit
     end
   end
@@ -23,7 +26,7 @@ class Public::CustomersController < Public::Base
 
   def unsubscribe
     @customer = current_customer
-    @customer.update(is_deleted: "true")
+    @customer.update(is_deleted: true)
 
     reset_session
 

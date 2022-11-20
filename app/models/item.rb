@@ -4,6 +4,11 @@ class Item < ApplicationRecord
 
   belongs_to :genre
 
+  validates :name, presence: true
+  validates :introduction, presence: true
+  validates :genre_id, presence: true
+  validates :price, presence: true
+
   has_one_attached :item_image
 
   def get_item_image(width, height)

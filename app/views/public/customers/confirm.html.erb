@@ -7,19 +7,16 @@
     <p class="col-8 mx-auto text-center">退会する場合は、「退会する」をクリックしてください。</p>
   </div>
 
-  <div class="row mx-auto">
-    <div class="col-10 row mx-auto">
-      <%= link_to customers_path, class:"col-4 ml-auto" do %>
-        <button type="button" class="btn btn-primary btn-lg">　退会しない　</button>
-      <% end %>
-
-      <div class="col-4 mr-auto">
-        <%= form_with model: @customer, url: unsubscribe_customer_path, method: :patch do |f| %>
-          <%= f.hidden_field :is_deleted, :value => true %>
-          <%= f.submit "退会する", class:"btn btn-danger btn-lg" %>
+  <div class="row">
+    <div class="ml-auto col-4">
+        <%= link_to customers_path, class:"col-6 ml-auto" do %>
+          <button type="button" class="btn btn-primary btn-lg btn-block">退会しない</button>
         <% end %>
-      </div>
-
+    </div>
+    <div class="mr-auto col-4">
+      <%= link_to unsubscribe_customer_path, method: :patch, data: {confirm: "本当に削除しますか？"}, class:"col-6 mr-auto" do %>
+        <button type="button" class="btn btn-danger btn-lg btn-block">退会する</button>
+      <% end %>
     </div>
   </div>
 

@@ -17,12 +17,16 @@ Rails.application.routes.draw do
     post 'orders/confirm',as: 'confirm_order'
     resources :orders, only:[:new, :create, :index, :show]
 
+    resources :addresses, except:[:new, :show]
   end
 
-  devise_for :customers, skip: ['registrations', 'passwords']
+  devise_for :customers, skip: ['sessions','registrations', 'passwords']
   devise_scope :customer do
-    get 'customers/sign_up', to: 'devise/registrations#new', as: :new_customer_registration
-    post 'customers', to: 'devise/registrations#create', as: :customer_registration
+    get 'customers/sign_up', to: 'public/registrations#new', as: :new_customer_registration
+    post 'customers', to: 'public/registrations#create', as: :customer_registration
+    get 'customers/sign_in', to: 'public/sessions#new', as: :new_customer_session
+    post 'customers/sign_in', to: 'public/sessions#create', as: :customer_session
+    delete 'customers/sign_out', to: 'public/sessions#destroy', as: :destroy_customer_session
   end
 
   namespace :admin do
@@ -33,14 +37,13 @@ Rails.application.routes.draw do
     resources :orders, only:[:show, :update]
     resources :order_details, only:[:update]
     resources :genres, only:[:index, :create, :edit, :update]
-
   end
 
-  devise_for :admins, skip: ['sessions', 'registrations', 'passwords']
+  devise_for :admin, skip: ['sessions', 'registrations', 'passwords']
   devise_scope :admin do
-    get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
-    post 'admins/sign_in', to: 'admins/sessions#create', as: :admin_session
-    delete 'admins/sign_out', to: 'admins/sessions#destroy',as: :destroy_admin_session
+    get 'admin/sign_in', to: 'admin/sessions#new', as: :new_admin_session
+    post 'admin/sign_in', to: 'admin/sessions#create', as: :admin_session
+    delete 'admin/sign_out', to: 'admin/sessions#destroy',as: :destroy_admin_session
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

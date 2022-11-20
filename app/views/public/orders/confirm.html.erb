@@ -53,7 +53,7 @@
   <div class="row mx-auto">
     <label class="col-3">支払方法</label>
     <div class="col-5 mr-auto">
-      <% if @order.payment_method == 0 %>
+      <% if @order.payment_method == "credit_card" %>
         <%= Order.payment_methods_i18n[:credit_card] %>
       <% else %>
         <%= Order.payment_methods_i18n[:transfer] %>

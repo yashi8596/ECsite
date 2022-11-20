@@ -14,11 +14,12 @@
         <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card], class:"col-3 mb-0" %>
       </div>
 
-
       <div class="col-12 mx-auto">
         <%= f.radio_button :payment_method, Order.payment_methods.key(1), class:"mx-2" %>
         <%= f.label :payment_method, Order.payment_methods_i18n[:transfer], class:"col-3 mb-0" %>
       </div>
+
+
 
       <h5 class="text-left col-12 my-2"><strong>お届け先</strong></h5><br>
 
@@ -27,7 +28,7 @@
         <%= f.label :address_number_1, 'ご自身の住所', class:"col-3 mb-0" %><br>
       </div>
 
-      <div class="row col-10 ml-5 pl-4">
+      <div class="row col-10 ml-5 pl-4 mb-2">
         <div class="p-3">
           〒<%= current_customer.postal_code %>
           <%= current_customer.address %><br>
@@ -35,7 +36,18 @@
         </div>
       </div>
 
+
       <div class="col-12 mx-auto">
+        <%= f.radio_button :address_number, 2, class:"mx-2" %>
+        <%= f.label :address_number_2, '登録済住所から選択', class:"col-3 mb-0" %><br>
+      </div>
+
+      <div class="row col-10 ml-5 pl-4 mb-2 py-3">
+        <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
+      </div>
+
+
+      <div class="col-12 mx-auto pb-3">
         <%= f.radio_button :address_number, 3, class:"mx-2" %>
         <%= f.label :address_number_3, '新しいお届け先', class:"col-3 mb-0" %><br>
       </div>
@@ -58,7 +70,7 @@
       <%= f.hidden_field :customer_id, :value => current_customer.id %>
       <%= f.hidden_field :shipping_fee, :value => @order.shipping_fee %>
       <%= f.hidden_field :total_payment, :value => @order.total_payment %>
-      <%= f.hidden_field :order_status, :value => Order.order_statuses.key(0) %>
+      <%= f.hidden_field :order_status, :value => @order.order_status %>
 
       <%= f.submit '確認画面へ進む', class:"btn btn-lg btn-primary col-3 mx-auto my-3" %>
 

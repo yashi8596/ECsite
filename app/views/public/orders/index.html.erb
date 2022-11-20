@@ -33,23 +33,7 @@
               <% end %>
             </td>
             <td class="col-1"><%= order.total_payment %></td>
-            <td class="col-2">
-              <% if order.order_status == 0 %>
-                <%= Order.order_statuses_i18n[:yet] %>
-
-              <% elsif order.order_status == 1 %>
-                <%= Order.order_statuses_i18n[:confirm] %>
-
-              <% elsif order.order_status == 2 %>
-                <%= Order.order_statuses_i18n[:working] %>
-
-              <% elsif order.order_status == 3 %>
-                <%= Order.order_statuses_i18n[:ready] %>
-
-              <% elsif order.order_status == 4 %>
-                <%= Order.order_statuses_i18n[:shipped] %>
-              <% end %>
-            </td>
+            <td class="col-2"><%= order.order_status %></td>
             <td class="col-2">
               <%= link_to order_path(order.id) do %>
                 <button type="button" class="btn btn-primary">表示する</button>

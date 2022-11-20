@@ -7,8 +7,10 @@ class Admin::ItemsController < Admin::Base
     @item = Item.new(item_params)
 
     if @item.save
+      flash.notice = "商品を登録しました。"
       redirect_to admin_item_path(@item.id)
     else
+      flash.alert = "お手数ですが、操作をやり直してください。"
       render :new
     end
   end

@@ -1,6 +1,10 @@
 <header class="container">
   <nav style="padding-top:20px" class="row">
-    <div class="col-2"><strong>NAGANO CAKE</strong></div>
+    <div class="col-2">
+      <%=link_to root_path do %>
+        <strong>NAGANO CAKE</strong>
+      <% end %>
+      </div>
 
     <div class="col-3"></div>
 
@@ -8,25 +12,31 @@
       <ul style="list-style: none;" class="nav-list row">
         <% if admin_signed_in? %>
 
-          <li class="nav-list-item col-3">
+          <li class="nav-list-item pl-0 pr-2 col 1 of 5">
             <%= link_to admin_items_path do %>
               <button type="button" class="btn btn-light">商品一覧</button>
             <% end %>
           </li>
 
-          <li class="nav-list-item col-3">
+          <li class="nav-list-item pl-0 pr-2 col 1 of 5">
             <%= link_to admin_customers_path do %>
               <button type="button" class="btn btn-light">会員一覧</button>
             <% end %>
           </li>
 
-          <li class="nav-list-item col-3">
+          <li class="nav-list-item pl-0 pr-2 col 1 of 5">
             <%= link_to admin_path do %>
-              <button type="button" class="btn btn-light">注文履歴一覧</button>
+              <button type="button" class="btn btn-light px-0">注文履歴一覧</button>
             <% end %>
           </li>
 
-          <li class="nav-list-item col-3">
+          <li class="nav-list-item pl-0 pr-2 col 1 of 5">
+            <%= link_to admin_genres_path do %>
+              <button type="button" class="btn btn-light px-0">ジャンル一覧</button>
+            <% end %>
+          </li>
+
+          <li class="nav-list-item px-0 col 1 of 5">
             <%= link_to destroy_admin_session_path, method: :delete do %>
               <button type="button" class="btn btn-light">ログアウト</button>
             <% end %>

@@ -4,53 +4,74 @@
       <h3 class="col-4 rounded text-center bg-light">商品新規登録</h3>
     </div>
   </div>
+
+  <% if flash[:notice] %>
+    <div class="row col-12 bg-info py-2 mb-3">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class="row col-12 bg-danger py-2 mb-3">
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
+      </p>
+    </div>
+  <% end %>
+
   <div class="row my-4">
 
-    <div class="col-8 mx-auto">
+    <div class="col-10 mx-auto">
       <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
 
-        <div class="form-group row">
-          <label class="col-3 text-left">商品画像</label>
-          <%= f.file_field :item_image, accept: "image/*", class:"form-control-file col-8 mx-auto" %>
-        </div>
+        <table class="table table-borderless">
+          <tr class="form-group row mb-0">
+            <th class="col-3 text-left">商品画像</th>
+            <td class="col-8"><%= f.file_field :item_image, accept: "image/*", class:"form-control-file mx-auto" %></td>
+          </tr>
 
-        <div class="form-group row">
-          <label class="col-3">商品名</label>
-          <%= f.text_field :name, class:"form-control col-8 mx-auto" %>
-        </div>
+          <tr class="form-group row mb-0">
+            <th class="col-3">商品名</th>
+            <td class="col-8"><%= f.text_field :name, class:"form-control mx-auto" %></td>
+          </tr>
 
-        <div class="form-group row">
-          <label class="col-3">商品説明</label>
-          <%= f.text_area :introduction, rows: "8", class:"form-control col-8 mx-auto" %>
-        </div>
+          <tr class="form-group row mb-0">
+            <th class="col-3">商品説明</th>
+            <td class="col-8"><%= f.text_area :introduction, rows: "8", class:"form-control mx-auto" %></td>
+          </tr>
 
-        <div class="form-group row">
-          <label class="col-3">ジャンル</label>
-          <%= f.select :genre_id, options_for_select([["ジャンルを選択してください", ''], ["ケーキ", '1'], ["プリン", '2'], ["焼き菓子", '3']]), {}, {class:"form-control genre_select col-8 mx-auto"} %>
-        </div>
+          <tr class="form-group row mb-0">
+            <th class="col-3">ジャンル</th>
+            <td class="col-8"><%= f.select :genre_id, options_for_select([["ジャンルを選択してください", ''], ["ケーキ", '1'], ["プリン", '2'], ["焼き菓子", '3']]), {}, {class:"form-control genre_select col-8 ml-0"} %></td>
+          </tr>
 
-        <div class="form-group row">
-          <label class="col-3">税抜価格</label>
-          <%= f.text_field :price, class:"form-control col-7 ml-auto" %>
-          <%= f.label '円', class:"col-1 mr-auto text-left" %>
-        </div>
+          <tr class="form-group row mb-0">
+            <th class="col-3">税抜価格</th>
+            <td class="col-8 row ml-0">
+              <%= f.text_field :price, class:"form-control col-6 ml-0" %>
+              <%= f.label '円', class:"col-6 mr-auto text-left mb-0" %>
+            </td>
+          </tr>
 
-        <div class="form-group row">
-          <label class="col-3">販売ステータス</label>
-          <div class="col-4 ml-auto">
-            <%= f.radio_button :is_active, 'true' %>
-            <%= f.label :is_active, '販売中', value: true %>
-          </div>
-          <div class="col-4 mr-auto">
-            <%= f.radio_button :is_active, 'false' %>
-            <%= f.label :is_active, '販売停止中', value: false %>
-          </div>
-        </div>
+          <tr class="form-group row mb-0">
+            <th class="col-3">販売ステータス</th>
+            <td class="col-8 row ml-0">
+              <div class="col-5 ml-auto">
+                <%= f.radio_button :is_active, 'true' %>
+                <%= f.label :is_active, '販売中', value: true %>
+              </div>
+              <div class="col-5 mr-auto">
+                <%= f.radio_button :is_active, 'false' %>
+                <%= f.label :is_active, '販売停止中', value: false %>
+              </div>
+            </td>
+          </tr>
+
+        </table>
 
         <div class="form-group row mb-4">
           <%= f.submit '新規登録', class:"btn btn-lg btn-success col-4 mx-auto" %>
         </div>
-
 
       <% end %>
     </div>

@@ -20,32 +20,16 @@
         <tr>
           <th class="table table-secondary col-2">支払方法</th>
           <td class="col-5">
-            <% if @order.payment_method == 0 %>
+            <% if @order.payment_method == "credit_card" %>
               <%= Order.payment_methods_i18n[:credit_card] %>
             <% else %>
               <%= Order.payment_methods_i18n[:transfer] %>
             <% end %>
-          </td>
+            </td>
         </tr>
         <tr>
           <th class="table table-secondary col-2">ステータス</th>
-          <td class="col-5">
-            <% if @order.order_status == 0 %>
-              <%= Order.order_statuses_i18n[:yet] %>
-              
-            <% elsif @order.order_status == 1 %>
-              <%= Order.order_statuses_i18n[:confirm] %>
-              
-            <% elsif @order.order_status == 2 %>
-              <%= Order.order_statuses_i18n[:working] %>
-              
-            <% elsif @order.order_status == 3 %>
-              <%= Order.order_statuses_i18n[:ready] %>
-              
-            <% elsif @order.order_status == 4 %>
-              <%= Order.order_statuses_i18n[:shipped] %>
-            <% end %>
-          </td>
+          <td class="col-5"><%= @order.order_status %></td>
         </tr>
       </table>
     </div>

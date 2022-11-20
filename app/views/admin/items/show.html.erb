@@ -5,6 +5,20 @@
     </div>
   </div>
 
+  <% if flash[:notice] %>
+    <div class="row col-12 bg-info py-2 mb-3">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class="row col-12 bg-danger py-2 mb-3">
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
+      </p>
+    </div>
+  <% end %>
+
   <div class="row my-4">
 
     <div class="col-4 ml-auto">
@@ -29,7 +43,7 @@
 
       <div class="row mb-2">
         <label class="col-3">税込価格<br>(税抜価格)</label>
-        <div class="col-8"><%= @item.price_inc_tax(@item.price) %>円</div>
+        <div class="col-8"><%= @item.price_inc_tax %>円</div>
       </div>
 
       <div class="row mb-2">

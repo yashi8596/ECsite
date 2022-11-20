@@ -1,9 +1,17 @@
 <div class="container">
   <div class="row col-12">
 
+  <% if flash[:notice] %>
+    <div class="row col-12 bg-info py-2">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% end %>
+
     <div class="col-3 row my-4 mr">
       <div class="col-12 mr-2">
-        <table class="table table-hover">
+        <table class="table table-bordered">
           <thead>
             <tr class="table-secondary">
               <th>ジャンル検索</th>

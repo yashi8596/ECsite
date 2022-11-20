@@ -6,6 +6,14 @@
     </div>
   </div>
 
+  <% if flash[:notice] %>
+    <div class="row col-12 py-2 mb-3">
+      <p id="notice" class="col-6 text-center mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% end %>
+
   <div class="row my-4">
     <div class="col-12">
       <table class="table table-hover">
@@ -23,9 +31,15 @@
           <% @orders.each do |order| %>
 
             <tr class="row">
-              <td class="col-3"><%= order.created_at %></td>
-              <td class="col-3"><%= order.customer.full_name(@last_name, @first_name) %></td>
-              <td class="col-3"><%= order.order_detail.amount %></td>
+              <td class="col-3">
+                <%= link_to admin_order_path(order.id) do %>
+                  <%= order.created_at %>
+                <% end %>
+              </td>
+              <td class="col-3"><%= order.customer.full_name(order.customer.last_name, order.customer.first_name) %></td>
+              <td class="col-3">
+                <%= order.order_details.inject(0) { |sum, order_detail| sum + order_detail.amount } %>
+                </td>
               <td class="col-3"><%= order.order_status %></td>
             </tr>
 

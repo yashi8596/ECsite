@@ -7,6 +7,6 @@ class Order < ApplicationRecord
   validates :name, presence: true
 
   enum payment_method: { credit_card: 0, transfer: 1 }
-  enum order_status: { yet: 0, confirm: 1, working: 2, ready: 3, shipped: 4 }
+  enum order_status: { 入金待ち: 0, 入金確認: 1, 製作中: 2, 発送準備中: 3, 発送済: 4 }
 
 end

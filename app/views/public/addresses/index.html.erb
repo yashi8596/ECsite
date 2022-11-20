@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row col-10 mx-auto my-3">
+    <h4 class="col-5 text-left">配送先登録/一覧</h4>
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="row col-12 bg-info py-2">
+      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:notice] %>
+      </p>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class="row col-12 bg-danger py-2">
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
+      </p>
+    </div>
+  <% end %>
+
+  <%= form_with model: @address, url: addresses_path(@address.id), method: :post do |f| %>
+
+    <div class="row mx-auto">
+       <div class="row col-10 ml-5 pl-4 my-2">
+        <label class="col-3 ml-0">郵便番号(ハイフンなし)</label>
+        <%= f.text_field :postal_code, class:"col-4 mr-auto form-control" %>
+      </div>
+
+      <div class="row col-10 ml-5 pl-4 mb-2">
+        <label class="col-3 ml-0">住所</label>
+        <%= f.text_field :address, class:"col-8 mr-auto form-control" %>
+      </div>
+
+      <div class="row col-10 ml-5 pl-4 mb-2">
+        <label class="col-3 ml-0">宛名</label>
+        <%= f.text_field :name, class:"col-4 mr-auto form-control" %>
+      </div>
+
+      <div class="row col-10 ml-5 pl-4 mb-4">
+        <%= f.submit '新規登録', class:"btn btn-lg btn-success col-4 mx-auto my-3 btn-block" %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <% if @addresses.count != 0 %>
+
+    <div class="row mx-auto">
+      <table class="table table-bordered">
+        <thead class="table table-secondary">
+          <tr>
+            <th class="col-2">郵便番号</th>
+            <th class="col-4">住所</th>
+            <th class="col-2">宛名</th>
+            <th class="col-4"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @addresses.each do |address| %>
+            <tr>
+              <td class="col-2 text-center"><%= address.postal_code %></td>
+              <td class="col-4 text-center"><%= address.address %></td>
+              <td class="col-2 text-center"><%= address.name %></td>
+              <td class="col-4">
+                <%= link_to edit_address_path(address.id), class:"col-6 mx-4" do %>
+                  <button type="button" class="btn btn-success btn-md">編集する</button>
+                <% end %>
+                <%= link_to address_path(address.id), method: :delete, class:"col-6 mx-4" do %>
+                  <button type="button" class="btn btn-danger btn-md">削除する</button>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% else %>
+
+    <p class="m-5 p-5 text-center">現在、配送先住所は登録されていません。</p>
+
+  <% end %>
+</div>

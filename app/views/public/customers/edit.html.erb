@@ -56,14 +56,13 @@
       </div>
 
       <div class="col-12 row">
-      <div class="col-2 ml-auto"></div>
-      <div class="col-8 mr-auto row">
-        <%= f.submit '編集内容を保存', class:"form-control btn btn-success btn-lg col-5"%>
-        <div class="col-3"></div>
-        <%= link_to confirm_customer_path, class:"col-3" do %>
-          <button type="button" class="btn btn-danger btn-lg">退会する</button>
-        <% end %>
-      </div>
+        <div class="col-2 ml-auto"></div>
+        <div class="col-8 mr-auto row">
+          <%= f.submit '編集内容を保存', class:"form-control btn btn-success btn-lg col-5"%>
+          <%= link_to confirm_customer_path, class:"col-6" do %>
+            <button type="button" class="btn btn-danger btn-lg btn-block">退会する</button>
+          <% end %>
+        </div>
       </div>
 
     </div>

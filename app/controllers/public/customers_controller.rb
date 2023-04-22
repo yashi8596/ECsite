@@ -15,7 +15,7 @@ class Public::CustomersController < Public::Base
       flash.notice = "アカウント情報を更新しました。"
       redirect_to customers_path
     else
-      flash.alert = "お手数ですが、操作をやり直してください。"
+      flash.now[:alert] = "お手数ですが、操作をやり直してください。"
       render :edit
     end
   end

@@ -1,9 +1,9 @@
 <div class="container">
 
-  <% if flash[:notice] %>
+  <% if flash[:alert] %>
     <div class="row col-12 bg-danger py-2">
-      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
-        <%= flash[:notice] %>
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
       </p>
     </div>
   <% end %>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-5 row py-4">
-      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post, class:"col-12" do |f| %>
 
         <h4 class="col-12 py-3 mb-0"><strong><%= @item.name %></strong></h4>
         <div class="col-12 p-3"><%= @item.introduction %></div>

@@ -64,6 +64,8 @@ class Public::OrdersController < Public::Base
       @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
       @order.shipping_fee = 800
       @order.total_payment = @total.round.to_i + @order.shipping_fee
+      
+      flash.now[:alert] = "操作を完了できませんでした。操作をやり直してください。"
       render :new
     end
   end

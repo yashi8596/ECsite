@@ -5,13 +5,7 @@
     </div>
   </div>
 
-  <% if flash[:notice] %>
-    <div class="row col-12 bg-info py-2 mb-3">
-      <p id="notice" class="col-6 text-center text-white mx-auto my-0">
-        <%= flash[:notice] %>
-      </p>
-    </div>
-  <% elsif flash[:alert] %>
+  <% if flash[:alert] %>
     <div class="row col-12 bg-danger py-2 mb-3">
       <p id="alert" class="col-6 text-center text-white mx-auto my-0">
         <%= flash[:alert] %>
@@ -42,7 +36,7 @@
 
           <tr class="form-group row mb-0">
             <th class="col-3">ジャンル</th>
-            <td class="col-8"><%= f.select :genre_id, options_for_select([["ジャンルを選択してください", ''], ["ケーキ", '1'], ["プリン", '2'], ["焼き菓子", '3']]), {}, {class:"form-control genre_select col-8 ml-0"} %></td>
+            <td class="col-8"><%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: "ジャンルを選択してください", class:"form-control genre_select col-8 ml-0" %></td>
           </tr>
 
           <tr class="form-group row mb-0">

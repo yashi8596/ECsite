@@ -3,6 +3,14 @@
     <h4 class="col-5 text-left">注文情報入力</h4>
   </div>
 
+  <% if flash[:alert] %>
+    <div class="row col-12 bg-danger py-2">
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
+      </p>
+    </div>
+  <% end %>
+
 
   <%= form_with model: @order, url: confirm_order_path, local: true do |f| %>
 

@@ -33,7 +33,7 @@ class Admin::OrderDetailsController < ApplicationController
       flash.notice ="ステータスを更新しました。"
       redirect_to admin_order_path(@order_detail.order.id) and return
     else
-      flash.alert ="お手数ですが、操作をやり直してください。"
+      flash.now[:alert] ="操作を完了できませんでした。操作をやり直してください。"
       render :back and return
     end
   end

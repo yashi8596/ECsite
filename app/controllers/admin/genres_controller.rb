@@ -10,8 +10,10 @@ class Admin::GenresController < Admin::Base
       flash.notice = "ジャンルを追加しました。"
       redirect_to admin_genres_path
     else
-      flash.alert = "お手数ですが、操作をやり直してください。"
-      render :back
+      flash.now[:alert] = "入力項目に誤りがあります。操作をやり直してください。"
+    @genre = Genre.new
+    @genres = Genre.all
+      render :index
     end
   end
 
@@ -25,8 +27,8 @@ class Admin::GenresController < Admin::Base
       flash.notice = "ジャンル名を変更しました。"
       redirect_to admin_genres_path
     else
-      flash.alert = "お手数ですが、操作をやり直してください。"
-      render :back
+      flash.now[:alert] = "入力項目に誤りがあります。操作をやり直してください。"
+      render :edit
     end
   end
 

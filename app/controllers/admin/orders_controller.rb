@@ -20,8 +20,8 @@ class Admin::OrdersController < Admin::Base
       redirect_to admin_order_path(@order.id)
 
     else
-      flash.alert ="お手数ですが、操作をやり直してください。"
-      render :back
+      flash.now[:alert] ="操作を完了できませんでした。操作をやり直してください。"
+      render :show
 
     end
   end

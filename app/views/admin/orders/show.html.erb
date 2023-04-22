@@ -39,7 +39,7 @@
       <tr>
         <th class="col-2">支払方法</th>
         <td class="col-10">
-          <% if @order.payment_method == 0 %>
+          <% if @order.payment_method == "credit_card" %>
             <%= Order.payment_methods_i18n[:credit_card] %>
           <% else %>
             <%= Order.payment_methods_i18n[:transfer] %>

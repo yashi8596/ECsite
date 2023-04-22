@@ -16,6 +16,12 @@
         <%= flash[:notice] %>
       </p>
     </div>
+  <% elsif flash[:alert] %>
+    <div class="row col-12 bg-danger py-2">
+      <p id="alert" class="col-6 text-center text-white mx-auto my-0">
+        <%= flash[:alert] %>
+      </p>
+    </div>
   <% end %>
 
   <div class="row mx-auto">
@@ -41,7 +47,7 @@
             <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
 
               <div class="row">
-                <%= f.select :amount, options_for_select([[cart_item.amount, ''], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9]]), {}, {class:"form-control amount_select col-4 ml-auto mx-2"} %>
+                <%= f.select :amount, options_for_select([[cart_item.amount, cart_item.amount], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9]]), {}, {class:"form-control amount_select col-4 ml-auto mx-2"} %>
                 <%= f.submit '変更', class:"btn btn-success col-4 mr-auto" %>
               </div>
 
@@ -101,10 +107,5 @@
 
     <p class="m-5 p-5 text-center">現在、カートに商品は入っていません。</p>
 
-    <div class="row">
-      <%= link_to items_path, class:"mx-auto" do %>
-        <button type="button" class="btn btn-success btn-lg">商品を見に行く</button>
-      <% end %>
-    </div>
   <% end %>
 </div>

@@ -18,6 +18,7 @@ class Admin::CustomersController < Admin::Base
       flash.notice = "会員情報を更新しました。"
       redirect_to admin_customer_path(@customer.id)
     else
+      flash.now[:alert] = "入力項目に誤りがあります。操作をやり直してください。"
       render :edit
     end
   end

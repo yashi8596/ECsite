@@ -12,7 +12,7 @@ class Public::AddressesController < Public::Base
       flash.notice = "配送先住所を登録しました。"
       redirect_to addresses_path
     else
-      flash.alert = "お手数ですが、操作をやり直してください。"
+      flash.now[:alert] = "入力項目に誤りがあります。操作をやり直してください。"
       @address = Address.new
       @addresses = current_customer.addresses
       render :index
@@ -30,7 +30,7 @@ class Public::AddressesController < Public::Base
       flash.notice = "登録内容を変更しました。"
       redirect_to addresses_path
     else
-      flash.alert = "お手数ですが、操作をやり直してください。"
+      flash.now[:alert] = "入力項目に誤りがあります。操作をやり直してください。"
       render :edit
     end
   end
@@ -38,7 +38,7 @@ class Public::AddressesController < Public::Base
   def destroy
     address = current_customer.addresses.find(params[:id])
     address.destroy
-    flash.notice = "登録住所を削除しました。"
+    flash.notice = "配送先住所を削除しました。"
     redirect_to addresses_path
   end
 

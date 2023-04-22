@@ -18,7 +18,6 @@ class Public::CartItemsController < Public::Base
 
   def destroy
     cart_item = current_customer.cart_items.find(params[:id])
-
     cart_item.destroy
     flash.notice = "該当商品を削除しました。"
     redirect_to cart_items_path
@@ -46,19 +45,18 @@ class Public::CartItemsController < Public::Base
           flash.notice = "カート内商品の情報を更新しました。"
           redirect_to cart_items_path and return
         else
-          flash.notice = "お手数ですが、操作をやり直して下さい。"
+          flash.alert = "お手数ですが、操作をやり直して下さい。"
           redirect_to item_path(@cart_item.item_id) and return
         end
       end
     end
 
     if @cart_item.save
-      flash.notice = "カートに商品を追加しました。"
 
+      flash.notice = "カートに商品を追加しました。"
       redirect_to cart_items_path and return
     else
-      flash.notice = "お手数ですが、操作をやり直して下さい。"
-
+      flash.alert = "お手数ですが、操作をやり直して下さい。"
       redirect_to item_path(@cart_item.item_id) and return
     end
   end
